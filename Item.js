@@ -13,7 +13,7 @@ function Item(props) {
     return (
         <View style={styles.container}>
             <Text style={styles.label}>{index}: {breed}</Text>
-            {keys.map(key => <Feature />)}
+            {keys.map(key => <Feature  name={key} value={data[key]}/>)}
         </View>
     )
 }
