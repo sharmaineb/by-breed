@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, ScrollView, FlatList, SafeAreaView, TextInput } from 'react-native';
+import { StyleSheet, View, FlatList, SafeAreaView, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 
 import Item from './Item';
 import { cats } from './breeds';
@@ -10,6 +10,10 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.kav}
+      >
       <StatusBar style="auto" />
       <View style={styles.listContainer}>
         <FlatList 
@@ -20,17 +24,26 @@ export default function App() {
           keyExtractor={item => item.breed}
         />  
       </View>
+      <View>
       <TextInput 
         style={styles.search}
         placeholder='Search'
         onChangeText={setSearch}
         value={search}
       />
+      </View>
+      </KeyboardAvoidingView>
       </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  kav: {
+    flex: 1,
+    width: '100%',
+    justifyContent: 'center',
+    marginBottom: 30,
+  },
   listContainer: {
     width: '100%'
   },
@@ -42,6 +55,7 @@ const styles = StyleSheet.create({
   },
   search: {
     fontSize: 24,
-    padding: 10
+    padding: 10,
+    borderWidth: 1,
   }
 });
